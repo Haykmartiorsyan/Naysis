@@ -1,0 +1,178 @@
+{% extends 'Naysis/base/basePage.html'%}
+
+{%load static%}
+{%block content%}
+
+<!--Page Title-->
+    <section class="page-title" style="background-image:url({%static  'images/parallax/image-1.jpg'%});">
+    	<div class="auto-container">
+        	<div class="sec-title">
+                <h1>{{post.name}}</h1>
+            </div>
+        </div>
+        <!--Down Arrow-->
+        <div class="down-arrow scroll-to-target" data-target=".scroll-to-this"></div>
+    </section>
+
+    <!--Sidebar Page-->
+    <div class="sidebar-page scroll-to-this">
+    	<div class="auto-container">
+        	<div class="row clearfix">
+
+                <!--Content Side-->
+                <div class="col-lg-9 col-md-8 col-sm-6 col-xs-12">
+                    <section class="blog-container blog-detail">
+
+                        <div class="blog-detail">
+                        	<!--Blog Post-->
+                            <article class="blog-post">
+                                <div class="post-inner">
+                                    <div class="image-box">
+                                        <ul>
+                                            <li><a href="{{post.image.url}}" class="lightbox-image"><img src="{{post.image.url}}" alt=""></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="post-header">
+                                        <ul class="post-info">
+                                            <li><span class="fa fa-clock-o"></span>&ensp; {{post.created}}</li>
+                                            <li><span class="fa fa-user"></span>&ensp; Posted by {{post.author}}</li>
+                                            <li><span class="fa fa-server"></span>&ensp; <a href="{% url 'blog:index' %}?q={{post.tag}}">
+                                                {{post.tag}}
+                                            </a></li>
+                                        </ul>
+                                        <h2>{{post.name}}</h2>
+
+                                    </div>
+                                    <div class="post-desc">
+                                        <div class="text">
+                                            <p>{{post.description}}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!--Comments Area-->
+                        <div class="comments-area">
+                            <div class="group-title text-uppercase"><h2>
+                                {%if post.comments.count == 1 %}
+                                {{post.comments.count}}
+                                Comment
+                                {%elif post.comments.count == 0%}
+                                Comments
+                                {%else%}
+                                {{post.comments.count}}
+                                Comments
+                                {%endif%}
+                                </h2></div>
+                            <div class="comment-box">
+                                {%for comment in post.comments.all%}
+                                <div class="comment wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                                    <div class="comment-info"><strong>{{comment.name}}</strong></div>
+                                    <div class="text">{{comment.message}}</div>
+                                </div>
+                                {%empty%}
+                                <p>Not comment to view</p>
+                                {%endfor%}
+                            </div>
+                        </div>
+
+                        <!-- Comment Form -->
+                        <div class="comment-form wow fadeInUp">
+
+                            <div class="group-title text-uppercase"><h2>Post a Comment</h2><div class="default-line-left"></div></div>
+
+                            <!--Comment Form-->
+                            <form method="post" action="" role="form">{% csrf_token %}
+                                <div class="row clearfix">
+                                    <!--Column-->
+                                    <div class="column col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <input type="text" name="name" placeholder="Your Name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" name="email" placeholder="Email" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="web_site" placeholder="Website">
+                                        </div>
+                                    </div>
+                                    <!--Column-->
+                                    <div class="column col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                           <textarea name="message" placeholder="Your Message" required></textarea>
+                                        </div>
+                                        <div class="form-group text-right">
+                                            <input class="theme-btn rounded-btn-orange" type="submit" value="Add Comment">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div><!--End Comment Form -->
+
+                    </section>
+
+
+                </div>
+                <!--Content Side-->
+
+                <!--Sidebar-->
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <aside class="sidebar">
+
+                        <!-- Search Form -->
+                        <div class="widget search-box">
+
+                            <form method="get" action="{% url 'blog:index' %}">
+                                <div class="form-group">
+                                    <input type="search" name="q" value="{{request.GET.q}}" placeholder="Search">
+                                    <input type="submit" value="">
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <!-- Popular Categories -->
+                        <div class="widget popular-categories wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                            <div class="sidebar-title"><h3>Popular Categories</h3></div>
+
+                            <ul class="list">
+                                {%for category in post_category%}
+                            	<li><a class="clearfix" href="{% url 'blog:index' %}?q={{category.name}}"><span class="txt pull-left">{{category.name}}</span></a></li>
+                                {%endfor%}
+                            </ul>
+
+                        </div>
+
+                        <!-- Recent Posts -->
+                        <div class="widget recent-posts wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                            <div class="sidebar-title"><h3>Latest News</h3></div>
+                            {%for post in latest_post%}
+                            <div class="post">
+                                <div class="post-thumb"><a href="/blog/{{post.id}}/"><img src="{{post.image.url}}" alt=""></a></div>
+                                <h4><a href="/blog/{{post.id}}/">{{post.name}}</a></h4>
+                                <div class="post-info"><span class="icon flaticon-calendars12"></span> {{post.created}}</div>
+                            </div>
+                            {%endfor%}
+                        </div>
+
+                        <!-- Popular Tags -->
+                        <div class="widget popular-tags">
+                            <div class="sidebar-title"><h3>Popular Tags</h3></div>
+                            {%for post in posts%}
+                            <a href="{% url 'blog:index' %}?q={{post.tag}}">{{post.tag}}</a>
+                            {%endfor%}
+                        </div>
+
+                    </aside>
+                </div>
+                <!--Sidebar-->
+
+            </div>
+        </div>
+    </div>
+
+
+{%endblock%}

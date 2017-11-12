@@ -1,0 +1,160 @@
+{% extends 'Naysis/base/basePage.html'%}
+
+{%load static%}
+{%block content%}
+ <!--Page Title-->
+    <section class="page-title" style="background-image:url({%static  'images/parallax/image-1.jpg'%});">
+    	<div class="auto-container">
+        	<div class="sec-title">
+                <h1>Our Blog</h1>
+            </div>
+        </div>
+        <!--Down Arrow-->
+        <div class="down-arrow scroll-to-target" data-target=".scroll-to-this"></div>
+    </section>
+
+    <!--Sidebar Page-->
+    <div class="sidebar-page scroll-to-this">
+    	<div class="auto-container">
+        	<div class="row clearfix">
+
+                <!--Content Side-->
+                <div class="col-lg-9 col-md-8 col-sm-6 col-xs-12">
+                    <section class="blog-container">
+                        <!--Blog Post-->
+{%if post_page%}
+                        {% for post in post_page%}
+
+
+                        <article class="blog-post">
+                            <div class="post-inner">
+                                <div class="image-box">
+                                    <figure><a href="#"><img src="{{post.image.url}}" alt=""></a></figure>
+                                    <div class="overlay-box">
+                                        <div class="links-outer">
+                                            <a href="{{post.image.url}}" class="view lightbox-image"><span class="fa fa-eye"></span></a>
+
+                                            <a href="https://www.facebook.com/sharer/sharer.php?s=100&p[title]={{post.short_description}}&p[url]={{request.get_absolute_uri}}&p[images][0]={{post.image.url}}" target="_blank" class="read"><span class="fa fa-link"></span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post-header">
+
+                                    <ul class="post-info">
+                                         <li><span class="fa fa-clock-o"></span>&ensp; {{post.created}}</li>
+                                        <li><span class="fa fa-user"></span>&ensp; Posted by {{post.author}}</li>
+                                        <li><span class="fa fa-server"></span>&ensp;<a href="?q={{post.tag}}">
+                                            {{post.tag}}
+                                        </a></li>
+                                    </ul>
+                                    <h2><a href="{{post.get_absolute_url}}">{{post.name}}</a></h2>
+                                </div>
+                                <div class="post-desc">
+                                    <div class="text"><p>{{post.short_description}}</p></div>
+                                    <div class="text-right"><a href="/blog/{{post.id}}/" class="theme-btn rounded-btn-blue">Read More</a></div>
+                                </div>
+                            </div>
+                        </article>
+                        {%endfor%}
+
+                        {% else %}
+                        <section class="default-section  bg-color outside-hidden">
+                        <div class="sec-title text-center main-title">
+                            <h1 class="default-title text-uppercase">Post Not Found</h1>
+                        </div>
+                        </section>
+                         {%endif%}
+
+                    </section>
+
+                    <br>
+                    <!-- Centered Pagination -->
+                    <div class="centered-pagination text-center">
+                    {% if post_page.has_other_pages %}
+                      <ul>
+                        {% if post_page.has_previous %}
+                          <li><a href="?page={{ post_page.previous_page_number }}{%if request.GET.q%}&{{request.GET.q}}{%endif%}"><span class="fa fa-angle-left"></span>&ensp;PREV&ensp;</a></li>
+                        {% else %}
+                          <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in post_page.paginator.page_range %}
+                          {% if post_page.number == i %}
+                            <li ><a href="?page={{ i }}" class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></a></li>
+                          {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                          {% endif %}
+                        {% endfor %}
+                        {% if post_page.has_next %}
+                          <li><a href="?page={{ post_page.next_page_number }}{%if request.GET.q%}&{{request.GET.q}}{%endif%}">&ensp;NEXT&ensp; <span class="fa fa-angle-right"></span> </a></li>
+                        {% else %}
+                          <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                      </ul>
+                    {% endif %}
+
+            </div>
+
+
+                </div>
+                <!--Content Side-->
+
+                <!--Sidebar-->
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <aside class="sidebar">
+
+                        <!-- Search Form -->
+                        <div class="widget search-box">
+
+                            <form method="get" action="">
+                                <div class="form-group">
+                                    <input type="search" name="q" value="{{request.GET.q}}" placeholder="Search">
+                                    <input type="submit" value="">
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <!-- Popular Categories -->
+                        <div class="widget popular-categories wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                            <div class="sidebar-title"><h3>Popular Categories</h3></div>
+
+                            <ul class="list">
+                                {%for category in post_category%}
+                            	<li><a class="clearfix" href="?q={{category.name}}"><span class="txt pull-left">{{category.name}}</span></a></li>
+                                {%endfor%}
+                            </ul>
+
+                        </div>
+
+                        <!-- Recent Posts -->
+                        <div class="widget recent-posts wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                            <div class="sidebar-title"><h3>Latest News</h3></div>
+                            {%for post in latest_post%}
+                            <div class="post">
+                                <div class="post-thumb"><a href="/blog/{{post.id}}/"><img src="{{post.image.url}}" alt=""></a></div>
+                                <h4><a href="/blog/{{post.id}}/">{{post.name}}</a></h4>
+                                <div class="post-info"><span class="icon flaticon-calendars12"></span> {{post.created}}</div>
+                            </div>
+                            {%endfor%}
+                        </div>
+
+                        <!-- Popular Tags -->
+                        <div class="widget popular-tags">
+                            <div class="sidebar-title"><h3>Popular Tags</h3></div>
+                            {%for post in posts%}
+                            <a href="?q={{post.tag}}">{{post.tag}}</a>
+                            {%endfor%}
+                        </div>
+
+                    </aside>
+
+
+                </div>
+                <!--Sidebar-->
+
+
+            </div>
+        </div>
+    </div>
+
+{%endblock%}

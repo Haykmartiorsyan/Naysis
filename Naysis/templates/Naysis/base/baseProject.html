@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+{%load static%}
+<meta charset="utf-8">
+<title>Naysis | Build Your Business Mountains</title>
+<link rel="icon" href="{%static 'images/logo-small.png' %}">
+
+<!-- Stylesheets -->
+<link href="{%static 'css/bootstrap.css' %}" rel="stylesheet">
+<link href="{%static 'css/revolution-slider.css' %}" rel="stylesheet">
+<link href="{%static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link href="{%static 'css/responsive.css' %}" rel="stylesheet">
+<link href="{%static 'css/form-register.css' %}" rel="stylesheet">
+<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="{%static 'js/respond.js' %}"></script><![endif]-->
+</head>
+
+<body>
+<div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Main Header -->
+    {%include 'Naysis/base/header.html'%}
+
+    <!--End Main Header -->
+
+
+
+
+    {%block content%}
+
+    {%endblock%}
+
+    <!--Main Footer-->
+    {%include 'Naysis/base/footer.html'%}
+
+</div>
+<!--End pagewrapper-->
+
+<!--Scroll to top-->
+<div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="fa fa-arrow-up"></span></div>
+
+<script src="{%static 'js/jquery.js' %}"></script>
+<script src="{%static 'js/bootstrap.min.js' %}"></script>
+<script src="{%static 'js/revolution.min.js' %}"></script>
+<script src="{%static 'js/bxslider.js' %}"></script>
+<script src="{%static 'js/owl.js' %}"></script>
+<script src="{%static 'js/jquery.fancybox.pack.js' %}"></script>
+<script src="{%static 'js/jquery.fancybox-media.js' %}"></script>
+<script src="{%static 'js/validate.js'%}"></script
+<script src="http://maps.google.com/maps/api/js"></script>
+<script src="{%static 'js/googlemaps.js'%}"></script>
+<script src="{%static 'js/wow.js' %}"></script>
+<script src="{%static 'js/script.js' %}"></script>
+</body>
+</html>

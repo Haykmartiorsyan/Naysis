@@ -1,0 +1,63 @@
+{% extends 'Naysis/base/baseProject.html'%}
+
+
+{%block content%}
+ <!--Page Title-->
+
+
+    <form class="form-register" method="post" action="{% url 'project:addproject' %}">{%csrf_token%}
+
+            <div class="form-register-with-email">
+
+                <div class="form-white-background">
+
+                    <div class="form-title-row">
+                        <h1>Create new Project</h1>
+                    </div>
+
+                    <div class="form-row">
+                        <label>
+                            <span>Project Name</span>
+                            <input type="text" name="projectname" id="id_projectname">
+                        </label>
+                    </div>
+
+                    <div class="form-row">
+                        <label>
+                            <span>Email</span>
+                            <input type="email"  name='email' id="id_email">
+                        </label>
+                    </div>
+
+                    <div class="form-row">
+                        <label>
+                            <span>Password</span>
+                            <input type="password" name="password" id="id_password">
+                        </label>
+                    </div>
+
+                    <div class="form-row">
+                        <label>
+                            <span>Re-Password</span>
+                            <input type="password" name="repassword" id="id_repassword">
+                        </label>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="checkbox" checked>
+                            <span>I agree to the <a href="#">terms and conditions</a></span>
+                        </label>
+                    </div>
+
+                    <div class="form-row">
+                        <button type="submit">Create</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+{%endblock%}

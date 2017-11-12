@@ -1,0 +1,84 @@
+{%load static%}
+<header class="main-header">
+    	<!-- Header Top -->
+    	<div class="header-top">
+        	<div class="auto-container clearfix">
+            	<!-- Top Left -->
+            	<div class="top-left">
+                	<ul class="clearfix">
+                    	<li><a href="{% url 'home:index' %}">Welcome to Naysis</a></li>
+                        <li><a href="mailto:info@naysis.com	"><span class="icon fa fa-send-o"></span>info@naysis.com</a></li>
+                    </ul>
+                </div>
+
+                <!-- Top Right -->
+                <div class="top-right">
+                	<!--Social Links Style One-->
+                	<div class="social-links-one clearfix">
+                    	<a href="#" class="facebook"><span class="fa fa-facebook-f"></span></a>
+                        <a href="#" class="linkedin"><span class="fa fa-linkedin"></span></a>
+                        <!--<a href="#" class="twitter"><span class="fa fa-twitter"></span></a>
+                        <a href="#" class="google-plus"><span class="fa fa-google-plus"></span></a>
+                        <a href="#" class="pinterest"><span class="fa fa-pinterest-p"></span></a>
+                        <a href="#" class="instagram"><span class="fa fa-instagram"></span></a>
+                        -->
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- Header Top End -->
+
+        <!-- Header Lower -->
+        <div class="header-lower">
+        	<div class="auto-container clearfix">
+
+                <!--Outer Box-->
+                <div class="outer-box">
+
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a href="{%url 'home:index' %}"><img width="180px" height="60px" src="{%static 'images/logo-1.png' %}" alt="Radium"></a>
+                     </div>
+
+                     <!--Search Box-->
+                    <div class="search-box">
+                    	<form method="get" action="{% url 'blog:index' %}">
+                        	<div class="form-group">
+                            	<input type="search" name="q" value="{{request.GET.q}}" placeholder="Search">
+                                <input type="submit" value="">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Main Menu -->
+                    <nav class="main-menu">
+
+                        <div class="navbar-header">
+                            <!-- Toggle Button -->
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <div class="navbar-collapse collapse clearfix">
+                            <ul class="navigation">
+                                <li><a href="{% url 'home:index' %}">Home</a></li>
+                                <li><a href="{% url 'about:index' %}">About</a></li>
+                                <li><a href="{% url 'services:index' %}">Services</a></li>
+                                <li><a href="{% url 'portfolio:index' %}">Portfolio</a></li>
+                                <li><a href="{% url 'blog:index' %}">Blog</a></li>
+                                <li><a href="{% url 'contact' %}">Contact</a></li>
+
+                                <!--<li><a href="{% url 'project:newproject' %}">Create Shop</a></li>-->
+
+                            </ul>
+                        </div>
+                    </nav><!-- Main Menu End-->
+
+                </div>
+            </div>
+        </div><!-- Header Lower End-->
+
+    </header>

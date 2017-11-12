@@ -1,0 +1,87 @@
+{% extends 'Naysis/base/basePage.html'%}
+{%load static %}
+
+{%block content%}
+ <!--Page Title-->
+    <!--Page Title-->
+    <section class="page-title" style="background-image:url({% static 'images/parallax/image-1.jpg' %});">
+    	<div class="auto-container">
+        	<div class="sec-title">
+                <h1>Portfolio</h1>
+                <div class="page-subtitle">sed diam nonumy eirmod tempor invidunt ut labore</div>
+            </div>
+        </div>
+
+        <!--Down Arrow-->
+        <div class="down-arrow scroll-to-target" data-target=".scroll-to-this"></div>
+    </section>
+
+
+<section class="gallery-section three-column scroll-to-this">
+    	<div class="auto-container">
+
+            <!--Filter-->
+            <div class="filters">
+
+                <ul class="filter-tabs clearfix">
+                    <li class="filter" data-role="button" data-filter="all"><span class="fa fa-circle"></span> All</li>
+                    {%for category in categoryes%}
+
+                    <li class="filter" data-role="button" data-filter=".{{category.name.split|join:'_'}}"><span class="fa fa-circle"></span> {{category.name}}</li>
+
+                    {%endfor%}
+                </ul>
+            </div>
+
+            <div class="images-container">
+                <div class="filter-list row clearfix">
+                    <!--Item Box-->
+                    {%for item in protfolio_page%}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 item-box portfolio-item mix mix_all {{item.category}}">
+                        <div class="inner-box">
+                            <figure class="image"><a href="{{item.image.url}}" class="lightbox-image" title="{{item.name}}"><img src="{{item.image.url}}" alt=""></a></figure>
+                            <div class="overlay-box">
+                                <a href="{{item.image.url}}" class="zoom-btn lightbox-image" title="{{item.name}}"><span class="icon flaticon-camera33"></span></a>
+                                <div class="content">
+                                    <h3><a href="{{item.url}}" target="_blank">{{item.name}}</a></h3>
+                                    <div class="tags"><a href="{{item.url}}" target="_blank">{{item.short_description}}</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+
+                <br><br><br>
+
+                <!-- Centered Pagination -->
+                <div class="centered-pagination text-center">
+                    {% if protfolio_page.has_other_pages %}
+                      <ul>
+                        {% if protfolio_page.has_previous %}
+                          <li><a href="?page={{ protfolio_page.previous_page_number }}"><span class="fa fa-angle-left"></span>&ensp;PREV&ensp;</a></li>
+                        {% else %}
+                          <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in protfolio_page.paginator.page_range %}
+                          {% if protfolio_page.number == i %}
+                            <li ><a href="?page={{ i }}" class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></a></li>
+                          {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                          {% endif %}
+                        {% endfor %}
+                        {% if protfolio_page.has_next %}
+                          <li><a href="?page={{ protfolio_page.next_page_number }}">&ensp;NEXT&ensp; <span class="fa fa-angle-right"></span> </a></li>
+                        {% else %}
+                          <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                      </ul>
+                    {% endif %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+{%endblock%}
